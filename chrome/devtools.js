@@ -1,4 +1,5 @@
-chrome.devtools.panels.create("Timers",
+chrome.devtools.panels.create(
+	"Timers",
 	"icon.svg",
 	"setInterval-sniffer.html",
 	function(panel) {
@@ -99,7 +100,6 @@ function onStart(doc) {
 	}
 	isRunning = true;
 	doc.body.classList.add('started');
-	doc.getElementById('start_button').textContent = 'Started';
 	doc.getElementById('start_button').disabled = true;
 }
 
@@ -109,7 +109,6 @@ function onStop(doc) {
 	}
 	isRunning = false;
 	doc.body.classList.remove('started');
-	doc.getElementById('start_button').textContent = 'Start';
 	doc.getElementById('start_button').disabled = false;
 
 	var hr = doc.createElement('hr');
