@@ -3,8 +3,8 @@
 	var originalSetInterval = window.setInterval;
 	var originalClearInterval = window.clearInterval;
 	// TODO: track setTimeout too, but separate it visually from setInterval
-	// var originalSetTimeout = window.setTimeout;
-	// var originalClearTimeout = window.clearTimeout;
+	var originalSetTimeout = window.setTimeout;
+	var originalClearTimeout = window.clearTimeout;
 
 
 	function post(data) {
@@ -34,25 +34,25 @@
 			return result;
 		};
 
-		//window.setTimeout = function(fn, time) {
-		//	var id = originalSetTimeout(fn, time);
-		//	post({
-		//		functionName: 'setTimeout',
-		//		fn: fn.toString(),
-		//		id: id,
-		//		time: time
-		//	});
-		//	return id;
-		//};
-		//
-		//window.clearTimeout = function(id) {
-		//	var result = originalClearTimeout(id);
-		//	post({
-		//		functionName: 'clearTimeout',
-		//		id: id
-		//	});
-		//	return result;
-		//}
+		window.setTimeout = function(fn, time) {
+			var id = originalSetTimeout(fn, time);
+			post({
+				functionName: 'setTimeout',
+				fn: fn.toString(),
+				id: id,
+				time: time
+			});
+			return id;
+		};
+
+		window.clearTimeout = function(id) {
+			var result = originalClearTimeout(id);
+			post({
+				functionName: 'clearTimeout',
+				id: id
+			});
+			return result;
+		}
 	}
 
 
@@ -60,8 +60,8 @@
 	function disable() {
 		window.setInterval = originalSetInterval;
 		window.clearInterval = originalClearInterval;
-		// window.setTimeout = originalSetTimeout;
-		// window.clearTimeout = originalClearTimeout;
+		window.setTimeout = originalSetTimeout;
+		window.clearTimeout = originalClearTimeout;
 	}
 
 
