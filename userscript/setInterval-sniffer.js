@@ -63,7 +63,7 @@
       'position: fixed;' +
       'top: 10px;' +
       'right: 10px;' +
-      'z-index: 9999;' +
+      'z-index: 999999;' +
       'width: 400px;' +
       'height: 300px;' +
       'background: rgba(28,28,28,0.8);' +
@@ -198,7 +198,7 @@
     'position: fixed;' +
     'top: 10px;' +
     'right: 10px;' +
-    'z-index: 9999;' +
+    'z-index: 999999;' +
     'width: 125px;' +
     'height: 30px;' +
     'background: rgba(28,28,28,0.8);' +
@@ -208,7 +208,7 @@
     'border: none;' +
     'cursor: pointer;' +
     'text-align: center;' +
-    'font: 11px;'
+    'font-size: 11px;'
   );
   startBtn.addEventListener('click', enable);
   document.body.appendChild(startBtn);
