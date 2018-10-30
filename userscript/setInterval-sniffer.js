@@ -23,7 +23,7 @@
     return name + '_' + id;
   }
 
-  function addLog(data) {
+  function log(data) {
     if (data.functionName === 'setTimeout' || data.functionName === 'setInterval') {
       var div = document.createElement('div');
       div.setAttribute('style',
@@ -70,17 +70,17 @@
       'border-radius: 4px;' +
       'color: #fff;'
     );
-    var out = document.createElement('pre');
+    var out = document.createElement('div');
     out.setAttribute('style',
       'white-space: pre-wrap; ' +
-      'height: 90%;' +
+      'width: 390px;' +
+      'height: 290px;' +
       'padding: 5px;' +
       'tab-size: 2;' +
       'font: 11px monospace;' +
-      'overflow: auto;'
+      'overflow: scroll;'
     );
     out.setAttribute('id', 'out');
-    out.setAttribute('class', 'setInterval-sniffer-pre');
     var closeBtn = document.createElement('button');
     closeBtn.textContent = '[x]';
     closeBtn.addEventListener('click', disable);
@@ -100,7 +100,7 @@
 
     window.setInterval = function (fn, time) {
       var id = originalSetInterval(fn, time);
-      addLog({
+      log({
         functionName: 'setInterval',
         fn: fn.toString(),
         id: id,
@@ -111,7 +111,7 @@
 
     window.clearInterval = function (id) {
       var result = originalClearInterval(id);
-      addLog({
+      log({
         functionName: 'clearInterval',
         id: id
       });
@@ -120,7 +120,7 @@
 
     window.setTimeout = function (fn, time) {
       var id = originalSetTimeout(fn, time);
-      addLog({
+      log({
         functionName: 'setTimeout',
         fn: fn.toString(),
         id: id,
@@ -131,7 +131,7 @@
 
     window.clearTimeout = function (id) {
       var result = originalClearTimeout(id);
-      addLog({
+      log({
         functionName: 'clearTimeout',
         id: id
       });
@@ -150,7 +150,7 @@
   }
 
 
-  // TODO: addLog file names and line numbers
+  // TODO: log file names and line numbers
   function prepareStack(constructor) {
     var _Error_prepareStackTrace = Error.prepareStackTrace;
     Error.prepareStackTrace = function (error, stack) {
@@ -193,8 +193,8 @@
 
   startBtn = document.createElement('button');
   startBtn.textContent = 'setInterval Sniffer';
-  startBtn.setAttribute('css', 'setInterval-sniffer-btn');
   startBtn.setAttribute('style',
+    'all: unset;' +
     'position: fixed;' +
     'top: 10px;' +
     'right: 10px;' +
@@ -206,7 +206,9 @@
     'color: #fff;' +
     'outline: none;' +
     'border: none;' +
-    'cursor: pointer;'
+    'cursor: pointer;' +
+    'text-align: center;' +
+    'font: 11px;'
   );
   startBtn.addEventListener('click', enable);
   document.body.appendChild(startBtn);
